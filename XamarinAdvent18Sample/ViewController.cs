@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Foundation;
 using UIKit;
+using System.Diagnostics;
 
 namespace XamarinAdvent18Sample
 {
@@ -42,6 +43,10 @@ namespace XamarinAdvent18Sample
 
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
             tableView.DeselectRow(indexPath, true);
             var vc = new ColorViewController(this._colors[(int) indexPath.Item]);
             this.NavigationController.PushViewController(vc, true);
